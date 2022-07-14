@@ -23,6 +23,18 @@ const error = [
         status: 409,
         message: 'User already registered', // [5]
     },
+    {
+        status: 401,
+        message: 'Token not found', // [6]
+    },
+    {
+        status: 401,
+        message: 'Expired or invalid token', // [7]
+    },
+    {
+        status: 404,
+        message: 'User does not exist', // [8]
+    },
 ];
 
 module.exports = error;

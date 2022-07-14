@@ -12,22 +12,6 @@ const checkEmailLogin = async (body) => {
     return data;
 };
 
-const checkEmailAddNew = async (email) => {
-    const data = await db.User.findOne({
-        where: { email },
-    });
-    if (data !== null) {
-        throw errorArray[5];
-    }
-    return data;
-};
-
-const addUser = async ({ displayName, email, password, image }) => {
-    await db.User.create({ displayName, email, password, image });
-};
-
 module.exports = {
     checkEmailLogin,
-    checkEmailAddNew,
-    addUser,
 };
