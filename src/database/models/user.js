@@ -8,6 +8,11 @@ const userSchema = (sequelize, DataTypes) => {
   },{
     timestamps: false,
   })  
+
+  user.associate = (models) => {
+    user.hasMany(models.BlogPost, {foreignKey: "userId", as: "user"})
+  }
+
   return user;
 };
 
