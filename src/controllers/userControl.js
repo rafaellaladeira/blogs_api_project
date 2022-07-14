@@ -30,7 +30,6 @@ const getById = async (req, res, next) => {
         const data = await service.getById(id);
         return res.status(200).json(data);
     } catch (error) {
-        console.log(error);
         next(error);
     }
 };
