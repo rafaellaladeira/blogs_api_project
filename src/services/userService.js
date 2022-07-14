@@ -18,17 +18,17 @@ const addUser = async ({ displayName, email, password, image }) => {
 const getAllUsers = async () => {
     const data = await db.User.findAll();
     const result = data.map((user) => user.dataValues);
-    
-    const teste = result.filter((e) => delete e.password);
-    console.log(teste);
-    return result;
+    const send = result.filter((e) => delete e.password);
+    return send;
 };
 
 const getById = async (id) => {
     const data = await db.User.findOne({
         where: { id } });
     if (data) {
-        return data;
+        const result = data.dataValues;
+        delete result.password;
+        return result;
     }
     throw errorArray[8];
 };

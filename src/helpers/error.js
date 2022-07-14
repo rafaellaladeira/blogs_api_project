@@ -35,6 +35,10 @@ const error = [
         status: 404,
         message: 'User does not exist', // [8]
     },
+    {
+        status: 400,
+        message: '"name" is required', // [9]
+    },
 ];
 
 module.exports = error;
