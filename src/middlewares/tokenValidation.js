@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const errorArray = require('../helpers/error');
-// const control = require('../controllers/userControl');
 
 require('dotenv').config();
 

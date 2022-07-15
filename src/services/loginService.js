@@ -7,7 +7,7 @@ const checkEmailLogin = async (body) => {
         where: { email, password },
     });
     if (data === null) {
-     throw errorArray[1];
+        throw errorArray[1];
     }
     return data;
 };
