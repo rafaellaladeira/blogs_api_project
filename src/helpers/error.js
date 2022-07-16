@@ -43,6 +43,10 @@ const error = [
         status: 400,
         message: '"categoryIds" not found', // [10]
     },
+    {
+        status: 404,
+        message: 'Post does not exist', // [11]
+    },
 ];
 
 module.exports = error;

@@ -7,5 +7,6 @@ const postRouter = Router();
 
 postRouter.post('/', authenticationToken, postValidation, control.addNewBlogPost);
 postRouter.get('/', authenticationToken, control.getAllBlogPost);
+postRouter.get('/:id', authenticationToken, control.getPostById);
 
 module.exports = postRouter;

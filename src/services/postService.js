@@ -34,8 +34,27 @@ const getAllBlogPost = async () => {
     return data;
 };
 
+const getPostById = async (id) => {
+    const data = await db.BlogPost.findAll({ 
+        where: { id },
+        include: 
+        [{ 
+            model: db.User, 
+            as: 'user', 
+            attributes: { exclude: ['password'] },
+        },
+        { model: db.Category, 
+            as: 'categories',
+            through: { attributes: [] },
+        }],
+    });
+    if (!data.length > 0) throw errorArray[11];
+    return data;
+};
+
 module.exports = {
     postRouter,
     verifyCategory,
     getAllBlogPost,
+    getPostById,
 };
