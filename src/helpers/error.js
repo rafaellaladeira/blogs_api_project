@@ -39,6 +39,10 @@ const error = [
         status: 400,
         message: '"name" is required', // [9]
     },
+    {
+        status: 400,
+        message: '"categoryIds" not found', // [10]
+    },
 ];
 
 module.exports = error;
