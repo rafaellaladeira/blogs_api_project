@@ -31,13 +31,6 @@ const getAllBlogPost = async () => {
             through: { attributes: [] },
         }],
     });
-
-    // const teste =await db.PostCategory.findAll({ include: { model:}})
-    // const result = await db.Category.findAll({ include: { model: db.BlogPost, 
-    //     as: 'blogId', 
-        // through: { attributes: [] },
-// } });
-    console.log('RESULTTTTT', data);
     return data;
 };
 

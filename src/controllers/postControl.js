@@ -22,7 +22,6 @@ const getAllBlogPost = async (_req, res, next) => {
         const data = await service.getAllBlogPost();
         return res.status(200).json(data);
     } catch (error) {
-        console.log('ERRO NA CONTROL', error);
         next(error);
     }
 };
