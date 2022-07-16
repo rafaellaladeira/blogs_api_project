@@ -6,5 +6,6 @@ const postValidation = require('../middlewares/postValidation');
 const postRouter = Router();
 
 postRouter.post('/', authenticationToken, postValidation, control.addNewBlogPost);
+postRouter.get('/', authenticationToken, control.getAllBlogPost);
 
 module.exports = postRouter;

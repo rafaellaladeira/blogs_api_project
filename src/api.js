@@ -6,7 +6,6 @@ const categoryRouter = require('./routes/categoryRouter');
 const postRouter = require('./routes/postRouter');
 
 const app = express();
-
 app.use(express.json());
 
 app.use('/login', loginRouter);

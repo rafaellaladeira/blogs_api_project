@@ -19,7 +19,30 @@ const verifyCategory = async (categoryIds) => {
         return data.count;
 };
 
+const getAllBlogPost = async () => {
+    const data = await db.BlogPost.findAll({ 
+        include: [{ 
+            model: db.User, 
+            as: 'user', 
+            attributes: { exclude: ['password'] },
+        },
+        { model: db.Category, 
+            as: 'categories',
+            through: { attributes: [] },
+        }],
+    });
+
+    // const teste =await db.PostCategory.findAll({ include: { model:}})
+    // const result = await db.Category.findAll({ include: { model: db.BlogPost, 
+    //     as: 'blogId', 
+        // through: { attributes: [] },
+// } });
+    console.log('RESULTTTTT', data);
+    return data;
+};
+
 module.exports = {
     postRouter,
     verifyCategory,
+    getAllBlogPost,
 };

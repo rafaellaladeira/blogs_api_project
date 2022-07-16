@@ -13,11 +13,21 @@ const addNewBlogPost = async (req, res, next) => {
             return res.status(201).json(result);
         } 
     } catch (error) {
-        console.log('ERRO NO CATCH:', error);
+        next(error);
+    }
+};
+
+const getAllBlogPost = async (_req, res, next) => {
+    try {
+        const data = await service.getAllBlogPost();
+        return res.status(200).json(data);
+    } catch (error) {
+        console.log('ERRO NA CONTROL', error);
         next(error);
     }
 };
 
 module.exports = {
     addNewBlogPost,
+    getAllBlogPost,
 };
