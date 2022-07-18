@@ -52,9 +52,34 @@ const getPostById = async (id) => {
     return data;
 };
 
+const updatePost = async ({ id, newData, getEmail }) => {
+    const { title, content } = newData;
+    const data = await db.User.findOne({ attributes: ['id'] }, { where: { email: getEmail } });
+    const idUser = data.dataValues.id;
+    const result = await db.BlogPost.update(
+         { title, content }, 
+        { where: { id, userId: idUser } },
+        );
+    if (result[0] === 0) throw errorArray[12];
+    return getPostById(id);
+};
+
 module.exports = {
     postRouter,
     verifyCategory,
     getAllBlogPost,
     getPostById,
+    updatePost,
 };
+
+// { title, content }, 
+// { where: { id, userId: idUser } },
+// { include: 
+// [{ model: db.User, 
+//     as: 'user', 
+//     attributes: { exclude: ['password'] } },
+// { model: db.Category, 
+//     as: 'categories',
+//     through: { attributes: [] },
+// }],
+// },
