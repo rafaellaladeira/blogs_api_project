@@ -9,5 +9,6 @@ const userRouter = Router();
 userRouter.post('/', addUsersValidation, control.addUser);
 userRouter.get('/', authenticationToken, control.getAllUsers);
 userRouter.get('/:id', authenticationToken, control.getById);
+userRouter.delete('/me', authenticationToken, control.deleteOwnUser);
 
 module.exports = userRouter;

@@ -33,9 +33,16 @@ const getById = async (id) => {
     throw errorArray[8];
 };
 
+const deleteOwnUser = async (email) => {
+    const data = await db.User.findOne({ where: { email } });
+    const result = await db.User.destroy({ where: { id: data.dataValues.id } });
+    return result;
+};
+
 module.exports = {
     checkEmailAddNew,
     addUser,
     getAllUsers,
     getById,
+    deleteOwnUser,
 };

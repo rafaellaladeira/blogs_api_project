@@ -57,7 +57,6 @@ const deletePost = async (req, res, next) => {
         const data = await service.deletePost({ id, email });
         if (data) return res.status(204).end();
     } catch (error) {
-        console.log('ERROOOOO', error);
         next(error);
     }
 };
