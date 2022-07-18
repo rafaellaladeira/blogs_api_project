@@ -36,7 +36,6 @@ const getById = async (req, res, next) => {
 
 const deleteOwnUser = async (req, res, next) => {
     try {
-        console.log(req.user);
         const data = await service.deleteOwnUser(req.user);
         if (data) return res.status(204).end();
     } catch (error) {

@@ -88,6 +88,44 @@ const deletePost = async ({ id, email }) => {
         return data;
 };
 
+const getPostByContent = async (word) => {
+    const data = await db.BlogPost.findOne(
+        { where: { content: { [Op.substring]: word } },
+        include: 
+        [{
+            model: db.User,
+            as: 'user',
+            attributes: { exclude: ['password'] },
+        },
+        {
+            model: db.Category,
+            as: 'categories',
+            through: { attributes: [] },
+        }],
+    },
+    );
+    if (!data) return [];
+    return [data];
+};
+const getPostByQueryTitle = async (word) => {
+    const data = await db.BlogPost.findOne(
+        { where: { title: { [Op.substring]: word } },
+        include: 
+        [{ 
+            model: db.User, 
+            as: 'user', 
+            attributes: { exclude: ['password'] },
+        },
+        { model: db.Category, 
+            as: 'categories',
+            through: { attributes: [] },
+        }],
+    },
+    );
+   if (data) return [data];
+    return getPostByContent(word);
+};
+
 module.exports = {
     postRouter,
     verifyCategory,
@@ -95,4 +133,5 @@ module.exports = {
     getPostById,
     updatePost,
     deletePost,
+    getPostByQueryTitle,
 };

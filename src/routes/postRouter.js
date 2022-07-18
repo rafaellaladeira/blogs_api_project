@@ -6,10 +6,11 @@ const postUpdateValidation = require('../middlewares/postUpdateValidation');
 
 const postRouter = Router();
 
+postRouter.get('/search', authenticationToken, control.getPostByQuery);
+postRouter.delete('/:id', authenticationToken, control.deletePost);
+postRouter.put('/:id', authenticationToken, postUpdateValidation, control.updatePost);
+postRouter.get('/:id', authenticationToken, control.getPostById);
 postRouter.post('/', authenticationToken, postValidation, control.addNewBlogPost);
 postRouter.get('/', authenticationToken, control.getAllBlogPost);
-postRouter.get('/:id', authenticationToken, control.getPostById);
-postRouter.put('/:id', authenticationToken, postUpdateValidation, control.updatePost);
-postRouter.delete('/:id', authenticationToken, control.deletePost);
 
 module.exports = postRouter;

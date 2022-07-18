@@ -61,10 +61,25 @@ const deletePost = async (req, res, next) => {
     }
 };
 
+const getPostByQuery = async (req, res, next) => {
+    try {
+        const word = req.query.q;
+        if (word.length === 0) {
+            const result = await service.getAllBlogPost();
+            return res.status(200).json(result);
+        }
+        const data = await service.getPostByQueryTitle(word);
+        return res.status(200).json(data);
+    } catch (error) {
+        next(error);
+    }
+};
+
 module.exports = {
     addNewBlogPost,
     getAllBlogPost,
     getPostById,
     updatePost,
     deletePost,
+    getPostByQuery,
 };
