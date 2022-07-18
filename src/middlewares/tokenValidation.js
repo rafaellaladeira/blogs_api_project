@@ -15,7 +15,8 @@ const authenticationToken = async (req, _res, next) => {
     if (!authorization) next(errorArray[6]);
     
     try {
-        await jwt.verify(authorization, SECRET, jwtConfig);
+        const email = await jwt.verify(authorization, SECRET, jwtConfig);
+        req.user = email.email;
         next();
     } catch (error) {
         next(errorArray[7]);

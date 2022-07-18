@@ -10,5 +10,6 @@ postRouter.post('/', authenticationToken, postValidation, control.addNewBlogPost
 postRouter.get('/', authenticationToken, control.getAllBlogPost);
 postRouter.get('/:id', authenticationToken, control.getPostById);
 postRouter.put('/:id', authenticationToken, postUpdateValidation, control.updatePost);
+postRouter.delete('/:id', authenticationToken, control.deletePost);
 
 module.exports = postRouter;

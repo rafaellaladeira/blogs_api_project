@@ -38,6 +38,7 @@ const getPostById = async (req, res, next) => {
 
 const updatePost = async (req, res, next) => {
     try {
+        console.log(req.user);
         const { id } = req.params;
         const newData = req.body;
         const getEmail = await getDataFromToken(req.headers.authorization);
@@ -48,9 +49,23 @@ const updatePost = async (req, res, next) => {
     }
 };
 
+const deletePost = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const email = req.user;
+        console.log(email);
+        const data = await service.deletePost({ id, email });
+        if (data) return res.status(204).end();
+    } catch (error) {
+        console.log('ERROOOOO', error);
+        next(error);
+    }
+};
+
 module.exports = {
     addNewBlogPost,
     getAllBlogPost,
     getPostById,
     updatePost,
+    deletePost,
 };

@@ -1,10 +1,13 @@
 const { Op } = require('sequelize');
+const Sequelize = require('sequelize');
+const { sequelize } = require('../database/models');
 const db = require('../database/models');
 const errorArray = require('../helpers/error');
 
 const postRouter = async ({ getEmail, allData }) => {
     const { title, content, categoryIds } = allData;
-    const data = await db.User.findOne({ attributes: ['id'] }, { where: { email: getEmail } });
+    const data = await db.User.findOne({ where: { email: getEmail } });
+    console.log('ANALISE DE ID PRA POSTAR', data);
     const result = await db.BlogPost.create({ title, content, userId: data.dataValues.id });
     await Promise.all(categoryIds.map(async (id) => {
         await db.PostCategory.create({ postId: result.null, categoryId: id });
@@ -64,22 +67,35 @@ const updatePost = async ({ id, newData, getEmail }) => {
     return getPostById(id);
 };
 
+const deletePost = async ({ id, email }) => {
+    const getUserId = await db.User.findOne({ where: { email } });
+    const existId = await getPostById(id);
+    if (!existId) throw errorArray[11];
+
+    const result = await db.BlogPost.findByPk(id, {
+        attributes: ['userId'] });
+    if (result.dataValues.userId !== getUserId.dataValues.id) throw errorArray[12];
+    console.log('comparação', result.dataValues.userId, getUserId.dataValues.id);
+    
+    const t = await sequelize.transaction();
+   
+    const data = await db.BlogPost.destroy(
+        { where: 
+            { id, userId: getUserId.dataValues.id } }, { transaction: t },
+            );
+            await db.PostCategory.destroy(
+                { where: { postId: id } },
+                { transaction: t },
+                );
+                console.log('DATAAAAAA', data);
+        return data;
+};
+
 module.exports = {
     postRouter,
     verifyCategory,
     getAllBlogPost,
     getPostById,
     updatePost,
+    deletePost,
 };
-
-// { title, content }, 
-// { where: { id, userId: idUser } },
-// { include: 
-// [{ model: db.User, 
-//     as: 'user', 
-//     attributes: { exclude: ['password'] } },
-// { model: db.Category, 
-//     as: 'categories',
-//     through: { attributes: [] },
-// }],
-// },
